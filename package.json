@@ -1,0 +1,13 @@
+{
+  "name": "cyp-getting-started",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "sdkcodes<omoelu1@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "cypress": "^10.11.0"
+  },
+  "dependencies": {
+    "node-static": "^0.7.11"
+  }
+}

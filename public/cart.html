@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cypress Ecommerce Cart</title>
+</head>
+<body>
+    <script>
+        // This function renders the cart page
+            function renderCartPage() {
+                // Get the cart from local storage
+                const cart = JSON.parse(localStorage.getItem('cart')) || []
+
+                // Check if the cart is empty
+                if (cart.length === 0) {
+                    // If it is, show a message
+                    document.body.innerHTML = '<h1>Your cart is empty</h1>'
+                    return
+                }
+
+                // If not, render the cart items
+                const cartItemsHtml = cart
+                    .map(
+                        item =>
+                            `<li>Product: ${item.id} - Quantity: ${item.quantity}</li>`
+                    )
+                    .join('')
+
+                document.body.innerHTML = `
+    <h1>Shopping Cart</h1>
+    <ul>
+      ${cartItemsHtml}
+    </ul>
+  `
+            }
+            window.addEventListener("load", renderCartPage);
+    </script>
+</body>
+</html>

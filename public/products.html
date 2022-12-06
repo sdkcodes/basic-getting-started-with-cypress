@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+</head>
+
+<body>
+    <div class="products-list"></div>
+    <div><a href="/cart.html">View cart</a></div>
+    <script>
+        // This function renders the product page
+        function renderProductPage() {
+            // Get the products from the server (in this example, we are using a hard-coded list)
+            const products = [
+                { id: 'abc123', name: 'Product 1' },
+                { id: 'def456', name: 'Product 2' },
+                { id: 'ghi789', name: 'Product 3' }
+            ]
+
+            // Create the HTML for the product list
+            const productListHtml = products
+                .map(
+                    product =>
+                        `<li>
+          ${product.name} -
+          <button onclick="addToCart('${product.id}')" data-product-id="${product.id}">Add to Cart</button>
+        </li>`
+                )
+                .join('')
+
+            // Render the product list
+            document.querySelector(".products-list").innerHTML = `
+    <h1>Our Products</h1>
+    <ul>
+      ${productListHtml}
+    </ul>
+  `
+        }
+        // This function adds a product to the cart
+        function addToCart(productId) {
+            // Get the cart from local storage
+            let cart = JSON.parse(localStorage.getItem('cart')) || []
+
+            // Check if the product is already in the cart
+            const productIndex = cart.findIndex(p => p.id === productId)
+            if (productIndex === -1) {
+                // If not, add the product to the cart
+                cart.push({ id: productId, quantity: 1 })
+            } else {
+                // If it is, increment the quantity
+                cart[productIndex].quantity++
+            }
+
+            // Save the updated cart to local storage
+            localStorage.setItem('cart', JSON.stringify(cart))
+        }
+        window.addEventListener("load", renderProductPage);
+    </script>
+</body>
+
+</html>
